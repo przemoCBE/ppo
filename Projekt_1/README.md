@@ -26,8 +26,8 @@ Wskazówka: informacje o pojedynczym polu na planszy możemy przechowywać w str
     int width;
     int height;
     public:
-    MinesweeperBoard();
-    void debug_display() const;
+      MinesweeperBoard();
+      void debug_display() const;
   };
 ```
 
