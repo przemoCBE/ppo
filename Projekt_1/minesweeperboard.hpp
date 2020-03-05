@@ -1,4 +1,6 @@
-#pragma once
+#ifndef minesweeperboard_hpp
+#define minesweeperboard_hpp
+
 #include <iostream>
 
 using std::cout;
@@ -13,9 +15,8 @@ class minesweeperBoard{
 	field board[100][100];
 	unsigned int width;
 	unsigned int height;
-	
-	std::string fieldDebug(const field &pole) const;
-public:
+	std::string fieldDebug(const field &pole) const;	//dla funkcji debugDisplay
+ public:
 	minesweeperBoard(unsigned int w,unsigned int h,unsigned int ileMin);
 	minesweeperBoard();
 	void debugDisplay() const;
@@ -42,6 +43,7 @@ minesweeperBoard::minesweeperBoard(unsigned int w,unsigned int h,unsigned int il
 	width=w;
 	height=h;
 	for (unsigned int i=0;i<ileMin;i++){
+		//generuj liczby losowe aż trafisz na pole, które nie ma miny
 		while (true){
 			unsigned int randW=rand()%w;
 			unsigned int randH=rand()%h;
@@ -73,3 +75,4 @@ void minesweeperBoard::debugDisplay() const{
 	}
 }
 
+#endif

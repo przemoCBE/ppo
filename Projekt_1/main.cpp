@@ -5,8 +5,8 @@
 using namespace std;
 
 int main(){
-	srand(time(NULL));	//kryptograficznie niebezpieczny
-//	minesweeperBoard tablica(10,40,200); //rzeczywista generacja planszy
+	srand(time(NULL));
+//	minesweeperBoard tablica(10,100,50); //rzeczywista generacja planszy
 	minesweeperBoard tablica;
 	tablica.debugDisplay();
 	return 0;
