@@ -45,10 +45,9 @@ minesweeperBoard::minesweeperBoard(unsigned int w,unsigned int h,unsigned int il
 	for (unsigned int i=0;i<ileMin;i++){
 		//generuj liczby losowe aż trafisz na pole, które nie ma miny
 		while (true){
-			unsigned int randW=rand()%w;
-			unsigned int randH=rand()%h;
-			if (board[randW][randH].hasMine==false){
-				board[randW][randH].hasMine=true;
+			field &pole=board[rand()%w][rand()%h];
+			if (pole.hasMine==false){
+				pole.hasMine=true;
 				break;
 			}
 		}
