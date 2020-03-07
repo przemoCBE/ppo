@@ -58,3 +58,48 @@ Sprawdzić, czy funkcja `debug_display()` poprawnie wyświetli tą planszę, czy
 [...][.o.][...][...][...]
 [...][...][...][...][...]
 ```
+
+*******************************************************************
+Kilka wskazówek dotyczących realizacji projektów na które będę zwracał uwagę:
+*******************************************************************
+
+- cały kod piszemy w języku angielskim,
+- usuwamy zakomentowany kod,
+- projekt dostarczamy razem z plikiem CMakeList.txt
+- rozbijamy plik nagłówkowy od ciała funkcji (hpp, cpp),
+- jeden nagłówek to jedna klasa/struktura -> `minesweeperboard.hpp`, `field.hpp`, itp.,
+- komentarze w kodzie robimy w języku angielskim,
+- nie zostawiamy kodu testowego (w przyszłości tego typu rzeczy mogą wpływać na bezpieczeństwo aplikacji) – do testowania kodu są testy jednostkowe o których będę mówił na zajęciach,
+- korzystamy z ułatwień jakie daje nam język c++,
+- w metodach klasy staramy się korzystać ze wskaźnika `this` – informujemy jednoznacznie czytającego skąd się bierze dana metoda lub pole:
+```C++
+void MinesweeperBoard::debugDisplay() const{
+    for (unsigned int i = 0; i< this->height; i++) {
+            …
+    }
+}
+```
+- do ustawiania pól wykorzystujemy tak zwane settery (enkapsulacja) np.:
+```C++
+void MinesweeperBoard::setField(int width, int height, const Field& field) {
+    if (width < this->width && height < this->height) {
+      this->board[height][width] = field;
+    }
+}
+```
+- nazwy zmiennych, które są przekazywane do metod powinny nazywać się tak samo, ułatwia to czytanie oraz debugowanie kodu:
+```C++
+MinesweeperBoard::minesweeperBoard(unsigned int width, unsigned int height): width(width), height(height) {}
+```
+- jeśli mamy klasę, to zawsze najpierw interesuje nas to jaki interfejs udostępnia, czyli w pierwszej kolejności wypisujemy konstruktory oraz metody publiczne:
+```C++
+class MinesweeperBoard {
+  public:
+    MinesweeperBoard()
+    void debugDisplay() const;
+  protected:
+    …
+  private:
+    …
+};
+```
