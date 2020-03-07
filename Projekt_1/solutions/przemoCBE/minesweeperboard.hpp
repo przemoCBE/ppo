@@ -5,17 +5,13 @@
 
 using std::cout;
 
-struct field{
-	bool hasMine=false;
-	bool hasFlag=false;
-	bool isRevealed=false;
-};
+#include "field.hpp"
 
 class minesweeperBoard{
 	field board[100][100];
 	unsigned int width;
 	unsigned int height;
-	std::string fieldDebug(const field &pole) const;	//dla funkcji debugDisplay
+	std::string fieldDebug(const field &pole) const;	//for debugDisplay()
  public:
 	minesweeperBoard(unsigned int w,unsigned int h,unsigned int ileMin);
 	minesweeperBoard();
