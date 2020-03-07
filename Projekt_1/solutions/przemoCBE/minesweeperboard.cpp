@@ -2,9 +2,8 @@
 #define minesweeperboard_cpp
 
 #include <iostream>
+#include <string>
 #include "minesweeperboard.hpp"
-
-using std::cout;
 
 //phase 1
 minesweeperBoard::minesweeperBoard(){
@@ -27,7 +26,6 @@ minesweeperBoard::minesweeperBoard(unsigned int w,unsigned int h,unsigned int mi
 	width=w;
 	height=h;
 	for (unsigned int i=0;i<mineAmount;i++){
-		//generuj liczby losowe aż trafisz na pole, które nie ma miny
 		while (true){
 			field &random=board[rand()%w][rand()%h];
 			if (random.hasMine==false){

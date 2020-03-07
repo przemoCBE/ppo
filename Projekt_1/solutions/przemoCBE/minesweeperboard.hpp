@@ -9,7 +9,7 @@ class minesweeperBoard{
 	unsigned int height;
 	std::string fieldDebug(const field &pole) const;	//for debugDisplay()
  public:
-	minesweeperBoard(unsigned int w,unsigned int h,unsigned int ileMin);
+	minesweeperBoard(unsigned int w,unsigned int h,unsigned int mineAmount);
 	minesweeperBoard();
 	void debugDisplay() const;
 };
