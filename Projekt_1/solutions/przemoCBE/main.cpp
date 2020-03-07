@@ -1,6 +1,6 @@
 #include <iostream>
 #include <time.h>
-#include "minesweeperboard.hpp"
+#include "minesweeperboard.cpp"
 
 using namespace std;
 
