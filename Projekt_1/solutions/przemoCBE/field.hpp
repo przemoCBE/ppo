@@ -1,4 +1,5 @@
 #ifndef field_hpp
+#define field_hpp
 
 struct field{
 	bool hasMine=false;
