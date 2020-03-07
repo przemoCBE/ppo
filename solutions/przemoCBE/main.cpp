@@ -44,7 +44,7 @@ int find_student(string indeks, bazaStudentow baza){
 	return -1;
 }
 
-inline ePlec wprowadz_plec(){
+inline ePlec input_gender(){
 	powrot:
 	cout << "płeć: ";
 	string plec;
@@ -59,8 +59,8 @@ inline ePlec wprowadz_plec(){
 		     << plecNazwa[i] << endl;
 	goto powrot;
 }
-//dla PESELu i nr indeksu
-string wprowadz_regex(const regex &wzor,const string &nazwaWartosci,const string &opisWzoru){
+
+string input_regex(const regex &wzor,const string &nazwaWartosci,const string &opisWzoru){
 	powrot:
 	string wartosc;
 	cout << nazwaWartosci << ": ";
@@ -73,7 +73,7 @@ string wprowadz_regex(const regex &wzor,const string &nazwaWartosci,const string
 }
 
 bool add_student(bazaStudentow &baza){
-	powrot:
+	beginning:
 	if (baza.rozmiar>=100){
 		cout << "brak miejsca!\n";
 		return false;
@@ -85,9 +85,9 @@ bool add_student(bazaStudentow &baza){
 	cin  >> bufor.imie;
 	cout << "Nazwisko: ";
 	cin  >> bufor.nazwisko;
-	bufor.plec = wprowadz_plec();
-	bufor.pesel = wprowadz_regex(rPesel,"PESEL","PESEL musi mieć dokładnie 11 cyfr");
-	bufor.indeks = wprowadz_regex(rIndeks,"nr indeksu","Nr indeksu musi mieć dokładnie 6 cyfr");
+	bufor.plec = input_gender();
+	bufor.pesel = input_regex(rPesel,"PESEL","PESEL musi mieć dokładnie 11 cyfr");
+	bufor.indeks = input_regex(rIndeks,"nr indeksu","Nr indeksu musi mieć dokładnie 6 cyfr");
 	cout << "------------------\n";
 	display_student(bufor);
 	cout << "------------------\n"
@@ -99,7 +99,7 @@ bool add_student(bazaStudentow &baza){
 		baza.rozmiar++;
 		return true;
 	}
-	goto powrot;
+	goto beginning;
 }
 
 bool remove_student(int indeks, bazaStudentow &baza){
@@ -111,11 +111,11 @@ bool remove_student(int indeks, bazaStudentow &baza){
 	return true;
 }
 
-string czytajCstring(ifstream &plik){
+string read_cstring(ifstream &file){
 	char znak;
 	string wartosc;
 	while (true){
-		plik.read(&znak,1);
+		file.read(&znak,1);
 		if (znak=='\0')
 			return wartosc;
 		wartosc += znak;
@@ -124,60 +124,38 @@ string czytajCstring(ifstream &plik){
 
 void load_students (string sciezka,bazaStudentow &baza){
 	student nowy;
-	ifstream plik;
-	plik.open(sciezka,fstream::binary);
-	if (plik.good()){
-		while (plik.peek()!=EOF){
-			nowy.imie     = czytajCstring(plik);
-			nowy.nazwisko = czytajCstring(plik);
-			nowy.pesel    = czytajCstring(plik);
-			nowy.indeks   = czytajCstring(plik);
-			plik.read((char *)&(nowy.plec),sizeof(ePlec));
+	ifstream file;
+	file.open(sciezka,fstream::binary);
+	if (file.good()){
+		while (file.peek()!=EOF){
+			nowy.imie     = read_cstring(file);
+			nowy.nazwisko = read_cstring(file);
+			nowy.pesel    = read_cstring(file);
+			nowy.indeks   = read_cstring(file);
+			file.read((char *)&(nowy.plec),sizeof(ePlec));
 			baza.baza[baza.rozmiar]=nowy;
 			baza.rozmiar++;
 		}
 	}
 }
 
-void piszCstring(ofstream &plik,string doPisania){
-	plik << doPisania << '\0';
+void write_cstring(ofstream &file,string doPisania){
+	file << doPisania << '\0';
 }
 
 void save_students (string sciezka,const bazaStudentow &baza){
-	ofstream plik;
-	plik.open(sciezka,fstream::binary);
-	if (plik.good()){
+	ofstream file;
+	file.open(sciezka,fstream::binary);
+	if (file.good()){
 		for (int i = 0;i<baza.rozmiar;i++){
-			piszCstring(plik,baza.baza[i].imie);
-			piszCstring(plik,baza.baza[i].nazwisko);
-			piszCstring(plik,baza.baza[i].pesel);
-			piszCstring(plik,baza.baza[i].indeks);
-			plik.write((char *)&(baza.baza[i].plec),sizeof(ePlec));
+			write_cstring(file,baza.baza[i].imie);
+			write_cstring(file,baza.baza[i].nazwisko);
+			write_cstring(file,baza.baza[i].pesel);
+			write_cstring(file,baza.baza[i].indeks);
+			file.write((char *)&(baza.baza[i].plec),sizeof(ePlec));
 		}
 	}
 }
-
-//funkcje testowe
-/*
-int main(){
-	bazaStudentow test = {{{"abcd","def",mezczyzna,"00000000000","123456"},{"dcba","acd",kobieta,"11111111111","654321"},{"test","test",kobieta,"22222222222","246801"}},3};
-	add_student(test);
-	display_all_students(test.baza,test.rozmiar);
-	cout << "indeks studenta z numerem indeksu 654321: " << find_student("654321",test) << endl;
-	remove_student(1,test);
-	display_all_students(test.baza,test.rozmiar);
-	save_students("test",test);
-	return 0;
-}
-*/
-/*
-int main(){
-	bazaStudentow test{{},0};
-	load_students("test",test);
-	display_all_students(test.baza,test.rozmiar);
-	return 0;
-}
-*/
 
 int main(){
 	bazaStudentow baza{{},0};
