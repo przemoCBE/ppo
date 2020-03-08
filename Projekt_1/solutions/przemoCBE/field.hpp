@@ -2,9 +2,9 @@
 #define field_hpp
 
 struct field{
-	bool hasMine=false;
-	bool hasFlag=false;
-	bool isRevealed=false;
+	bool hasMine:1,
+	     hasFlag:1,
+	     isRevealed:1;
 };
 
 #endif
