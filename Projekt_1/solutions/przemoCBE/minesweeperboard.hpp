@@ -7,10 +7,9 @@
 class minesweeperBoard{
 	public:
 		minesweeperBoard(unsigned int width,unsigned int height,unsigned int mineAmount);
-//		minesweeperBoard();
+		minesweeperBoard();
 		void debugDisplay() const;
 	private:
-//		field board[100][100];
 		std::unique_ptr<std::unique_ptr <field[]>[]> board;
 		unsigned int width;
 		unsigned int height;

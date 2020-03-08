@@ -7,33 +7,27 @@
 #include "minesweeperboard.hpp"
 
 //phase 1
-/*
 minesweeperBoard::minesweeperBoard(){
-	width=10;
-	height=20;
+	this->width=10;
+	this->height=20;
+	board=std::make_unique<std::unique_ptr <field[]>[]>(this->width);
+	for (unsigned int i=0;i<this->width;i++){
+		minesweeperBoard::board[i]=std::make_unique<field[]>(this->height);
+	}
 	board[4][16].hasMine=true;
 	board[6][3].hasMine=true;
 	board[1][11].hasMine=true;
 	board[4][16].hasFlag=true;
 	board[7][12].isRevealed=true;
 }
-*/
+
 
 minesweeperBoard::minesweeperBoard(unsigned int width,unsigned int height,unsigned int mineAmount){
-	/*
-	if ((this->width)>100){
-		(this->width)=100;
-	}
-	if ((this->height)>100){
-		(this->height)=100;
-	}
-	*/
-	std::cout << width;
+	this->width=width;
+	this->height=height;
 	if (mineAmount>(this->width*this->height/2)){
 		mineAmount=(this->width*this->height/2);
 	}
-	this->width=width;
-	this->height=height;
 	board=std::make_unique<std::unique_ptr <field[]>[]>(this->width);
 	for (unsigned int i=0;i<this->width;i++){
 		minesweeperBoard::board[i]=std::make_unique<field[]>(this->height);
@@ -49,13 +43,6 @@ minesweeperBoard::minesweeperBoard(unsigned int width,unsigned int height,unsign
 	}
 }
 
-/*
-minesweeperBoard::minesweeperBoard(unsigned int w,unsigned int h,unsigned int mineAmount){
-	board=std::make_unique<field [w]>;
-	width=w;
-	height=h;
-}
-*/
 std::string minesweeperBoard::fieldDebug(const field &pole) const{
 	std::string toReturn="...";
 	if (pole.hasMine)
