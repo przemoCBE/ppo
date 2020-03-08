@@ -5,6 +5,7 @@
 #include <string>
 #include "minesweeperboard.hpp"
 
+//phase 1
 minesweeperBoard::minesweeperBoard(){
 	width=10;
 	height=20;
@@ -13,6 +14,26 @@ minesweeperBoard::minesweeperBoard(){
 	board[1][11].hasMine=true;
 	board[4][16].hasFlag=true;
 	board[7][12].isRevealed=true;
+}
+
+minesweeperBoard::minesweeperBoard(unsigned int w,unsigned int h,unsigned int mineAmount){
+	if (w>100)
+		w=100;
+	if (h>100)
+		h=100;
+	if (mineAmount>(w*h/2))
+		mineAmount=(w*h/2);
+	width=w;
+	height=h;
+	for (unsigned int i=0;i<mineAmount;i++){
+		while (true){
+			field &random=board[rand()%w][rand()%h];
+			if (random.hasMine==false){
+				random.hasMine=true;
+				break;
+			}
+		}
+	}
 }
 
 std::string minesweeperBoard::fieldDebug(const field &pole) const{
