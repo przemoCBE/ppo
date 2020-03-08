@@ -1,9 +1,10 @@
 #include "minesweeperboard.cpp"
+#include <ctime>
 
 int main(){
 //	srand(time(NULL));
-//	minesweeperBoard board(10,100,50);
-	minesweeperBoard board;
+	minesweeperBoard board(10,15,10);
+//	minesweeperBoard board;
 	board.debugDisplay();
 	return 0;
 }
