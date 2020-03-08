@@ -8,12 +8,7 @@
 
 //phase 1
 minesweeperBoard::minesweeperBoard(){
-	this->width=10;
-	this->height=20;
-	board=std::make_unique<std::unique_ptr <field[]>[]>(this->width);
-	for (unsigned int i=0;i<this->width;i++){
-		minesweeperBoard::board[i]=std::make_unique<field[]>(this->height);
-	}
+	this->createBoard(10,20);
 	board[4][16].hasMine=true;
 	board[6][3].hasMine=true;
 	board[1][11].hasMine=true;
@@ -23,15 +18,7 @@ minesweeperBoard::minesweeperBoard(){
 
 
 minesweeperBoard::minesweeperBoard(unsigned int width,unsigned int height,unsigned int mineAmount){
-	this->width=width;
-	this->height=height;
-	if (mineAmount>(this->width*this->height/2)){
-		mineAmount=(this->width*this->height/2);
-	}
-	board=std::make_unique<std::unique_ptr <field[]>[]>(this->width);
-	for (unsigned int i=0;i<this->width;i++){
-		minesweeperBoard::board[i]=std::make_unique<field[]>(this->height);
-	}
+	this->createBoard(width,height);
 	for (unsigned int i=0;i<mineAmount;i++){
 		while (true){
 			field &random=board[rand()%width][rand()%height];
@@ -43,13 +30,13 @@ minesweeperBoard::minesweeperBoard(unsigned int width,unsigned int height,unsign
 	}
 }
 
-std::string minesweeperBoard::fieldDebug(const field &pole) const{
+std::string minesweeperBoard::fieldDebug(const field &debug) const{
 	std::string toReturn="...";
-	if (pole.hasMine)
+	if (debug.hasMine)
 		toReturn[0]='M';
-	if (pole.isRevealed)
+	if (debug.isRevealed)
 		toReturn[1]='O';
-	if (pole.hasFlag)
+	if (debug.hasFlag)
 		toReturn[2]='F';
 	return toReturn;
 }
