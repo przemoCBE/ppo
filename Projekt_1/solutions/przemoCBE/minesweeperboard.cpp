@@ -6,30 +6,6 @@
 #include <memory>
 #include "minesweeperboard.hpp"
 
-//phase 1
-minesweeperBoard::minesweeperBoard(){
-	this->createBoard(10,20);
-	board[4][16].hasMine=true;
-	board[6][3].hasMine=true;
-	board[1][11].hasMine=true;
-	board[4][16].hasFlag=true;
-	board[7][12].isRevealed=true;
-}
-
-
-minesweeperBoard::minesweeperBoard(unsigned int width,unsigned int height,unsigned int mineAmount){
-	this->createBoard(width,height);
-	for (unsigned int i=0;i<mineAmount;i++){
-		while (true){
-			field &random=board[rand()%width][rand()%height];
-			if (!random.hasMine){
-				random.hasMine=true;
-				break;
-			}
-		}
-	}
-}
-
 std::string minesweeperBoard::fieldDebug(const field &debug) const{
 	std::string toReturn="...";
 	if (debug.hasMine)
@@ -47,6 +23,28 @@ void minesweeperBoard::debugDisplay() const{
 			std::cout << "[" << fieldDebug(board[j][i]) << "] ";
 		}
 		std::cout << std::endl;
+	}
+}
+
+void minesweeperBoard::createBoard(unsigned int width,unsigned int height,unsigned int mineAmount){
+	//set width/height
+	this->width=width;
+	this->height=height;
+	//create the board
+	board=std::make_unique<std::unique_ptr <field[]>[]>(this->width);
+	for (unsigned int i=0;i<this->width;i++){
+		minesweeperBoard::board[i]=std::make_unique<field[]>(this->height);
+	}
+	if (mineAmount>(this->width*this->height/2)){
+		mineAmount=(this->width*this->height/2);
+	}
+	//populate the board with mines
+	field *random;
+	for (unsigned int i=0;i<mineAmount;i++){
+		do{
+			random=&board[rand()%width][rand()%height];
+		}while(random->hasMine);
+		random->hasMine=true;
 	}
 }
 

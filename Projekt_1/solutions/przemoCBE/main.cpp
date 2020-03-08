@@ -4,11 +4,11 @@
 
 int main(){
 	srand(time(NULL));
-	minesweeperBoard board(15,15,50);
+	minesweeperBoard board;
 //	minesweeperBoard board;
 	board.debugDisplay();
 	std::cout<<"------\n";
-	board.createBoard(20,20);
+	board.createBoard(15,20,1);
 	board.debugDisplay();
 	return 0;
 }
