@@ -6,7 +6,7 @@
 
 class minesweeperBoard{
 	public:
-		minesweeperBoard(unsigned int width,unsigned int height,unsigned int mineAmount=0){
+		minesweeperBoard(unsigned int width,unsigned int height,unsigned int mineAmount=0,unsigned int seed=0){
 			this->createBoard(width,height,mineAmount);
 		};
 		//phase 1 test constructor
@@ -18,7 +18,7 @@ class minesweeperBoard{
 			this->board[7][12].isRevealed=true;
 		};
 		void debugDisplay() const;
-		void createBoard(unsigned int width,unsigned int height,unsigned int mineAmount=0);
+		void createBoard(unsigned int width,unsigned int height,unsigned int mineAmount=0,unsigned int seed=0);
 	private:
 		std::unique_ptr<std::unique_ptr <field[]>[]> board;
 		unsigned int width;
