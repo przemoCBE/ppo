@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <random>
 #include "minesweeperboard.hpp"
 
 std::string minesweeperBoard::fieldDebug(const field &debug) const{
@@ -39,12 +40,15 @@ void minesweeperBoard::createBoard(unsigned int width,unsigned int height,unsign
 		mineAmount=(this->width*this->height/2);
 	}
 	//populate the board with mines
-	field *random;
+	std::random_device random;
+	std::minstd_rand randomEngine(random());	//c++11 predefined random engine
+	std::uniform_int_distribution<unsigned int> randomX(0,this->width-1), randomY(0,this->height-1);
+	field *randomField;
 	for (unsigned int i=0;i<mineAmount;i++){
 		do{
-			random=&board[rand()%width][rand()%height];
-		}while(random->hasMine);
-		random->hasMine=true;
+			randomField=&board[randomX(randomEngine)][randomY(randomEngine)];
+		}while(randomField->hasMine);
+		randomField->hasMine=true;
 	}
 }
 
