@@ -5,6 +5,7 @@
 #include <string>
 #include <memory>
 #include <random>
+#include <ctime>
 #include "minesweeperboard.hpp"
 
 std::string minesweeperBoard::fieldDebug(const field &debug) const{
@@ -40,10 +41,9 @@ void minesweeperBoard::createBoard(unsigned int width,unsigned int height,unsign
 		mineAmount=(this->width*this->height/2);
 	}
 	//populate the board with mines
-	//use std::random_device if no seed is provided
+	//use time if no seed is provided
 	if (seed==0){
-		std::random_device random;
-		seed=random();
+		seed=time(0);
 	}
 	std::minstd_rand randomEngine(seed);	//c++11 predefined random engine
 	std::uniform_int_distribution<unsigned int> randomX(0,this->width-1), randomY(0,this->height-1);
