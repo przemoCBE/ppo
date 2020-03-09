@@ -10,12 +10,15 @@
 
 std::string minesweeperBoard::fieldDebug(const field &debug) const{
 	std::string toReturn="...";
-	if (debug.hasMine)
+	if (debug.hasMine){
 		toReturn[0]='M';
-	if (debug.isRevealed)
+	}
+	if (debug.isRevealed){
 		toReturn[1]='O';
-	if (debug.hasFlag)
+	}
+	if (debug.hasFlag){
 		toReturn[2]='F';
+	}\
 	return toReturn;
 }
 

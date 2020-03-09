@@ -20,11 +20,13 @@ class minesweeperBoard{
 		void debugDisplay() const;
 		void createBoard(unsigned int width,unsigned int height,unsigned int mineAmount=0,unsigned int seed=0);
 	private:
+		//game board
 		std::unique_ptr<std::unique_ptr <field[]>[]> board;
+		//dimensions of the game board
 		unsigned int width;
 		unsigned int height;
-		
-		std::string fieldDebug(const field &pole) const;	//for debugDisplay()
+		//used by debugDisplay()
+		std::string fieldDebug(const field &debug) const;
 };
 
 #endif
