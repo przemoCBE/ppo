@@ -18,7 +18,7 @@ std::string minesweeperBoard::fieldDebug(const field &debug) const{
 	}
 	if (debug.hasFlag){
 		toReturn[2]='F';
-	}\
+	}
 	return toReturn;
 }
 
