@@ -19,6 +19,9 @@ class minesweeperBoard{
 		};
 		void debugDisplay() const;
 		void createBoard(unsigned int width,unsigned int height,unsigned int mineAmount=0);
+		
+		unsigned int getWidth() const {return width;}
+		unsigned int getHeight() const {return height;}
 	private:
 		//game board
 		std::unique_ptr<std::unique_ptr <field[]>[]> board;
