@@ -18,7 +18,7 @@ class minesweeperBoard{
 			this->board[7][12].isRevealed=true;
 		};
 		void debugDisplay() const;
-		void createBoard(unsigned int width,unsigned int height,unsigned int mineAmount=0,unsigned int seed=0);
+		void createBoard(unsigned int width,unsigned int height,unsigned int mineAmount=0);
 	private:
 		//game board
 		std::unique_ptr<std::unique_ptr <field[]>[]> board;
@@ -27,6 +27,7 @@ class minesweeperBoard{
 		unsigned int height;
 		//used by debugDisplay()
 		std::string fieldDebug(const field &debug) const;
+		void populateBoard(unsigned int mineAmount);
 };
 
 #endif

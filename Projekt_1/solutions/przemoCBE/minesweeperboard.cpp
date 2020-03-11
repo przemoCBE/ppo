@@ -31,7 +31,7 @@ void minesweeperBoard::debugDisplay() const{
 	}
 }
 
-void minesweeperBoard::createBoard(unsigned int width,unsigned int height,unsigned int mineAmount,unsigned int seed){
+void minesweeperBoard::createBoard(unsigned int width,unsigned int height,unsigned int mineAmount){
 	//set width/height
 	this->width=width;
 	this->height=height;
@@ -43,12 +43,12 @@ void minesweeperBoard::createBoard(unsigned int width,unsigned int height,unsign
 	if (mineAmount>(this->width*this->height/2)){
 		mineAmount=(this->width*this->height/2);
 	}
-	//populate the board with mines
-	//use time if no seed is provided
-	if (seed==0){
-		seed=time(0);
-	}
-	std::minstd_rand randomEngine(seed);	//c++11 predefined random engine
+	populateBoard(mineAmount);
+}
+	
+//populate the board with mines       
+void minesweeperBoard::populateBoard(unsigned int mineAmount){
+	std::minstd_rand randomEngine(time(nullptr));	//c++11 predefined random engine
 	std::uniform_int_distribution<unsigned int> randomX(0,this->width-1), randomY(0,this->height-1);
 	field *randomField;
 	for (unsigned int i=0;i<mineAmount;i++){
@@ -56,7 +56,7 @@ void minesweeperBoard::createBoard(unsigned int width,unsigned int height,unsign
 			randomField=&board[randomX(randomEngine)][randomY(randomEngine)];
 		}while(randomField->hasMine);
 		randomField->hasMine=true;
-	}
+        }
 }
 
 #endif
