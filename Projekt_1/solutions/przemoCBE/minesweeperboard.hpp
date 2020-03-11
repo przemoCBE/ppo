@@ -6,7 +6,7 @@
 
 class minesweeperBoard{
 	public:
-		minesweeperBoard(unsigned int width,unsigned int height,unsigned int mineAmount=0,unsigned int seed=0){
+		minesweeperBoard(unsigned int width,unsigned int height,unsigned int mineAmount=0){
 			this->createBoard(width,height,mineAmount);
 		};
 		//phase 1 test constructor
