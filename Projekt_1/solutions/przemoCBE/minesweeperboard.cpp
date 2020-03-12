@@ -19,6 +19,8 @@ std::string minesweeperBoard::fieldDebug(const field &debug) const{
 	if (debug.hasFlag){
 		toReturn[2]='F';
 	}
+	toReturn.append(std::to_string(static_cast<unsigned int>(debug.nearbyMines)));
+	//toReturn.append(<unsigned int>(debug.nearbyMines));
 	return toReturn;
 }
 
@@ -50,13 +52,29 @@ void minesweeperBoard::createBoard(unsigned int width,unsigned int height,unsign
 void minesweeperBoard::populateBoard(unsigned int mineAmount){
 	std::minstd_rand randomEngine(time(nullptr));	//c++11 predefined random engine
 	std::uniform_int_distribution<unsigned int> randomX(0,this->width-1), randomY(0,this->height-1);
-	field *randomField;
 	for (unsigned int i=0;i<mineAmount;i++){
-		do{
-			randomField=&board[randomX(randomEngine)][randomY(randomEngine)];
-		}while(randomField->hasMine);
-		randomField->hasMine=true;
+		while(!setMine(randomX(randomEngine),randomY(randomEngine),true)){};
         }
+}
+
+bool minesweeperBoard::setMine(unsigned int posX,unsigned int posY,bool val){
+	field &working=getField(posX,posY);
+	if (working.hasMine==val){
+		return false;
+	}
+	working.hasMine=val;
+	short a;
+	if (val){
+		a=1;
+	}else{
+		a=-1;
+	}
+	for (unsigned int i=posX-1;i<=posX+1;i++){
+		for (unsigned int j=posY-1;j<=posY+1;j++){
+			getField(i,j).nearbyMines+=a;
+		}
+	}
+	return true;
 }
 
 #endif
