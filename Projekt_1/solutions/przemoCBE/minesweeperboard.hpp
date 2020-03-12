@@ -13,8 +13,8 @@ class minesweeperBoard{
 		minesweeperBoard():minesweeperBoard(10,20){
 			this->setMine(4,16,true);
 			this->getField(4,16).hasFlag=true;
-			this->setMine(6,3,true)=true;
-			this->setMine(1,1,true)=true;
+			this->setMine(6,3,true);
+			this->setMine(1,1,true);
 			this->getField(7,12).isRevealed=true;
 		};
 		void debugDisplay() const;
