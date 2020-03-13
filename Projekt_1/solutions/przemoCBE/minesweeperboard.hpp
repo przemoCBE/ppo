@@ -60,7 +60,7 @@ class minesweeperBoard{
 		bool reveal(unsigned int posX,unsigned int posY);
 		bool toggleFlag(unsigned int posX,unsigned int posY);
 		
-		char getFieldInfo() const;
+		char getFieldInfo(unsigned int posX,unsigned int posY) const;
 		
 	private:
 		//game board

@@ -203,10 +203,24 @@ bool minesweeperBoard::toggleFlag(unsigned int posX,unsigned int posY){
 	return false;
 }
 
-char minesweeperBoard::getFieldInfo(unsigned int posX,unsigned int posY){
-	if (!isOnBoard(posX,posY)||board[posX][posY].isRevealed||this->state!=RUNNING){
-		return false;
+char minesweeperBoard::getFieldInfo(unsigned int posX,unsigned int posY) const{
+	if (!isOnBoard(posX,posY)){
+		return '#';
 	}
+	if (!getRevealed(posX,posY)){
+		if (getFlag(posX,posY)){
+			return 'F';
+		}
+		return '_';
+	}
+	if (hasMine(posX,posY)){
+		return 'X';
+	}
+	char toReturn = std::to_string(getNearbyMines(posX,posY))[0];
+	if (toReturn=='0'){
+		toReturn=' ';
+	}
+	return toReturn;
 }
 
 #endif
