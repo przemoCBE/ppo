@@ -53,7 +53,7 @@ int main(){
 	for (unsigned int i=1;i<6;i++){
 		board.toggleFlag(i,i);
 	}
-	board.toggleFlag(7,7);	//no changes outside of the board
+	board.toggleFlag(7,7);	//no changes can be made outside of the board
 	board.debugDisplay();
 	board.toggleFlag(6,5);
 	board.debugDisplay();
@@ -61,7 +61,7 @@ int main(){
 	board.debugDisplay();
 	board.toggleFlag(6,5);
 	board.debugDisplay();
-	board.toggleFlag(6,6);	//no changes after the game ends
+	board.toggleFlag(6,6);	//no changes can be made after the game ends
 	board.debugDisplay();
 	std::cout<<"------------------------\n";
 	board.createBoard(10,10,HARD);
