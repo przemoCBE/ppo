@@ -11,7 +11,7 @@ int main(){
 	board.debugDisplay();
 	std::cout<<"------------------------\n";
 	//winning by revealing
-	board.createBoard(7,7,DEBUG);
+	board.createBoard(7,7,gameMode::DEBUG);
 	board.debugDisplay();
 	board.reveal(7,6);
 	board.debugDisplay();
@@ -36,7 +36,7 @@ int main(){
 	board.debugDisplay();
 	std::cout<<"------------------------\n";
 	//winning by flags
-	board.createBoard(7,7,DEBUG);
+	board.createBoard(7,7,gameMode::DEBUG);
 	board.reveal(2,6);
 	board.debugDisplay();
 	//horizontal
@@ -64,7 +64,7 @@ int main(){
 	board.toggleFlag(6,6);	//no changes can be made after the game ends
 	board.debugDisplay();
 	std::cout<<"------------------------\n";
-	board.createBoard(10,10,HARD);
+	board.createBoard(10,10,gameMode::HARD);
 	board.debugDisplay();
 	return 0;
 }
