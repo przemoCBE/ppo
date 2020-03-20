@@ -1,8 +1,14 @@
-#include "minesweeperboard.hpp"
+#include "minesweeperboard.cpp"
+#include "minesweepertextview.cpp"
 #include <iostream>
 
 int main(){
-	minesweeperBoard board;
+	minesweeperBoard board(50,50,gameMode::EASY);
+	minesweeperTextView display(board);
+	display.display();
+	board.reveal(20,20);
+	display.display();
+	/*
 	//losing
 	board.debugDisplay();
 	board.reveal(7,7);//safe, despite landing on a mine
@@ -66,5 +72,6 @@ int main(){
 	std::cout<<"------------------------\n";
 	board.createBoard(10,10,gameMode::HARD);
 	board.debugDisplay();
+	*/
 	return 0;
 }

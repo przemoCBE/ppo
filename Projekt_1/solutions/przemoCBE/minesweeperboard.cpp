@@ -147,7 +147,7 @@ bool minesweeperBoard::reveal(unsigned int posX,unsigned int posY){
 }
 
 void minesweeperBoard::revealFlood(unsigned int posX,unsigned int posY){
-	if (!isOnBoard(posX,posY)||getRevealed(posX,posY)){
+	if (!isOnBoard(posX,posY)||isRevealed(posX,posY)){
 		return;
 	}
 	this->board[posX][posY].isRevealed=true;
@@ -207,7 +207,7 @@ char minesweeperBoard::getFieldInfo(unsigned int posX,unsigned int posY) const{
 	if (!isOnBoard(posX,posY)){
 		return '#';
 	}
-	if (!getRevealed(posX,posY)){
+	if (!isRevealed(posX,posY)){
 		if (getFlag(posX,posY)){
 			return 'F';
 		}

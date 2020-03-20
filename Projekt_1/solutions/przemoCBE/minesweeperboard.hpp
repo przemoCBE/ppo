@@ -3,6 +3,7 @@
 
 #include "field.hpp"
 #include <memory>
+#include <string>
 
 
 enum gameMode                     { DEBUG, EASY=10, NORMAL=20, HARD=30 };
@@ -37,22 +38,9 @@ class minesweeperBoard{
 				return board[posX][posY].hasFlag;
 			}
 			return false;
-		}/*
-		bool getMine(unsigned int posX,unsigned int posY) const {
-			if (isRevealed(posX,posY))){
-				return hasMine(posX,posY)
-			}
-			return false;
-		}*/
-		bool getRevealed(unsigned int posX,unsigned int posY) const{
-			if (isOnBoard(posX,posY)){
-				return board[posX][posY].isRevealed;
-			}
-			return false;
 		}
-		
 		int getNearbyMines(unsigned int posX,unsigned int posY) const {
-			if (getRevealed(posX,posY)){
+			if (isRevealed(posX,posY)){
 				return board[posX][posY].nearbyMines;
 			}
 			return -1;
@@ -88,7 +76,12 @@ class minesweeperBoard{
 		void safeSpot(unsigned int posX,unsigned int posY);
 		
 		bool setMine(unsigned int posX,unsigned int posY,const bool val);
-		//similar to getMine
+		bool isRevealed(unsigned int posX,unsigned int posY) const{
+			if (isOnBoard(posX,posY)){
+				return board[posX][posY].isRevealed;
+			}
+			return false;
+		}
 		bool hasMine(unsigned int posX,unsigned int posY) const {
 			if (isOnBoard(posX,posY)){
 				return board[posX][posY].hasMine;
