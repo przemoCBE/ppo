@@ -1,5 +1,5 @@
-#ifndef minesweeperboard_hpp
-#define minesweeperboard_hpp
+#ifndef __MINESWEEPER_BOARD_HPP__
+#define __MINESWEEPER_BOARD_HPP__
 
 #include "field.hpp"
 #include <memory>

@@ -1,4 +1,4 @@
-#include "minesweeperboard.cpp"
+#include "minesweeperboard.hpp"
 #include <iostream>
 
 int main(){

@@ -1,5 +1,5 @@
-#ifndef field_hpp
-#define field_hpp
+#ifndef __FIELD_HPP__
+#define __FIELD_HPP__
 
 //a single field on a minesweeper board
 

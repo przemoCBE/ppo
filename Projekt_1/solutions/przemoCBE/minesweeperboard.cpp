@@ -1,5 +1,5 @@
-#ifndef minesweeperboard_cpp
-#define minesweeperboard_cpp
+#ifndef __MINESWEEPER_BOARD_CPP__
+#define __MINESWEEPER_BOARD_CPP__
 
 #include <iostream>
 #include <string>
