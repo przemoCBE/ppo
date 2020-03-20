@@ -1,0 +1,11 @@
+#include "minesweepertextview.hpp"
+#include <iostream>
+
+minesweeperTextView::display(){
+	for(unsigned int posX=0;i<board.width();posX++){
+		for(unsigned int posY=0;i<board.height();posY++){
+			cout << getFieldInfo(posX,posY);
+		}
+		std::cout << std::endl;
+	}
+}
