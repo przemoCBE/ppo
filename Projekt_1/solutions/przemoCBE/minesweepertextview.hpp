@@ -11,6 +11,7 @@ class minesweeperTextView{
 		void display();
 	private:
 		minesweeperBoard *board;
+		void displayLine();
 };
 
 #endif
