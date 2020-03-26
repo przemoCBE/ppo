@@ -19,19 +19,19 @@ class minesweeperBoard{
 		void debugDisplay() const;
 		void createBoard(unsigned int width,unsigned int height,unsigned int mineAmount=0);
 		void createBoard(unsigned int width,unsigned int height,gameMode mode){
-			if (mode){
-				createBoard(width,height,(width*height)*(mode*0.01));	
-			}else{
+			if (mode==gameMode::DEBUG){
 				createBoard(width,height);
 				populateDebug();
+			}else{
+				createBoard(width,height,(width*height)*(mode*0.01));
 			}
-		};
+		}
 		
 		unsigned int getWidth() const {return width;}
 		unsigned int getHeight() const {return height;}
-		unsigned int getFlagAmount() const {return flagAmount;};
+		unsigned int getFlagAmount() const {return flagAmount;}
 		
-		gameState getGameState() const {return state;};
+		gameState getGameState() const {return state;}
 		
 		bool getFlag(unsigned int posX,unsigned int posY) const {
 			if (isOnBoard(posX,posY)){
@@ -47,7 +47,6 @@ class minesweeperBoard{
 		}
 		bool reveal(unsigned int posX,unsigned int posY);
 		bool toggleFlag(unsigned int posX,unsigned int posY);
-		
 		char getFieldInfo(unsigned int posX,unsigned int posY) const;
 		
 	private:
@@ -56,26 +55,23 @@ class minesweeperBoard{
 		//dimensions of the game board
 		unsigned int width;
 		unsigned int height;
-		
 		//for tracking win conditions and user interface
 		//win if all three are equal
 		unsigned int mineAmount=0;
 		unsigned int flagAmount=0;
 		unsigned int flaggedMineAmount=0;
 		//win if it reaches mineAmount
-		unsigned int coveredFields;	
-		
+		unsigned int coveredFields;
 		gameState state=NEW;
 		//used by debugDisplay()
 		std::string fieldDebug(unsigned int posX,unsigned int posY) const;
-		
 		void populateBoard(unsigned int mineAmount);
 		void populateDebug();
-		//used by reveal()
-		void revealFlood(unsigned int posX,unsigned int posY);
+		void revealFlood(unsigned int posX,unsigned int posY); //used by reveal()
 		void safeSpot(unsigned int posX,unsigned int posY);
-		
 		bool setMine(unsigned int posX,unsigned int posY,const bool val);
+		
+		//private getters
 		bool isRevealed(unsigned int posX,unsigned int posY) const{
 			if (isOnBoard(posX,posY)){
 				return board[posX][posY].isRevealed;
@@ -88,7 +84,6 @@ class minesweeperBoard{
 			}
 			return false;
 		}
-		
 		bool isOnBoard(unsigned int posX,unsigned int posY) const{
 			if (posX<this->width&&posY<this->height){
 				return true;
