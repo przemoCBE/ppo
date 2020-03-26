@@ -121,12 +121,12 @@ bool minesweeperBoard::setMine(unsigned int posX,unsigned int posY,const bool ha
 }
 //return true if the game ends
 bool minesweeperBoard::reveal(unsigned int posX,unsigned int posY){
-	if (!isOnBoard(posX,posY)){
+	if (!this->isOnBoard(posX,posY)||this->getFlag(posX,posY)){
 		return false;
 	}
 	switch (this->state){
 		case NEW:
-			safeSpot(posX,posY);
+			this->safeSpot(posX,posY);
 			this->state=RUNNING;
 		case RUNNING:
 		break;
@@ -147,7 +147,7 @@ bool minesweeperBoard::reveal(unsigned int posX,unsigned int posY){
 }
 
 void minesweeperBoard::revealFlood(unsigned int posX,unsigned int posY){
-	if (!isOnBoard(posX,posY)||isRevealed(posX,posY)){
+	if (!this->isOnBoard(posX,posY)||this->isRevealed(posX,posY)){
 		return;
 	}
 	this->board[posX][posY].isRevealed=true;
