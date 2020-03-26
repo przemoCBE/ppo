@@ -20,8 +20,8 @@ void minesweeperBoard::debugDisplay() const{
 	          << "there are:\n"
 	          << this->mineAmount         << " mines\n"
 	          << this->flagAmount         << " flags\n"
-	          << this->flaggedMineAmount   << " flagged mines\n"
-	          << this->coveredFields        << " covered fields\n"
+	          << this->flaggedMineAmount  << " flagged mines\n"
+	          << this->coveredFields      << " covered fields\n"
 	          << "---------------\n"
 	          << "game is in " << gameStateName[this->state] <<" state\n"
 	          << "---------------\n";
