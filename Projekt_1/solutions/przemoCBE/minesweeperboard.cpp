@@ -28,10 +28,10 @@ void minesweeperBoard::debugDisplay() const{
 }
 
 std::string minesweeperBoard::fieldDebug(unsigned int posX,unsigned int posY) const{
-	if (!isOnBoard(posX,posY)){
+	if (!this->isOnBoard(posX,posY)){
 		return "err ";	
 	};
-	field debug=board[posX][posY];
+	field debug=this->board[posX][posY];
 	std::string toReturn="...";
 	if (debug.hasMine){
 		toReturn[0]='M';
@@ -71,7 +71,7 @@ void minesweeperBoard::createBoard(unsigned int width,unsigned int height,unsign
 	for (unsigned int i=0;i<this->width;i++){
 		minesweeperBoard::board[i]=std::make_unique<field[]>(this->height);
 	}
-	populateBoard(mineAmount);
+	this->populateBoard(mineAmount);
 }
 	
 //populate the board with mines       
@@ -79,27 +79,27 @@ void minesweeperBoard::populateBoard(unsigned int mineAmount){
 	std::minstd_rand randomEngine(time(nullptr));	//c++11 predefined random engine
 	std::uniform_int_distribution<unsigned int> randomX(0,this->width-1), randomY(0,this->height-1);
 	for (unsigned int i=0;i<mineAmount;i++){
-		while(!setMine(randomX(randomEngine),randomY(randomEngine),true)){};
+		while(!this->setMine(randomX(randomEngine),randomY(randomEngine),true)){};
 	}
 }
 
 void minesweeperBoard::populateDebug(){
 	//horizontal
 	for (unsigned int i=0;i<this->width;i++){
-		setMine(i,0,true);
+		this->setMine(i,0,true);
 	}
 	//vertical
 	for (unsigned int i=2;i<this->height;i+=2){
-		setMine(0,i,true);
+		this->setMine(0,i,true);
 	}
 	//diagonal
 	for (unsigned int i=1;i<this->width&&i<this->height;i++){
-		setMine(i,i,true);
+		this->setMine(i,i,true);
 	}
 }
 
 bool minesweeperBoard::setMine(unsigned int posX,unsigned int posY,const bool hasMine){
-	if (isOnBoard(posX,posY)&&board[posX][posY].hasMine!=hasMine){
+	if (this->isOnBoard(posX,posY)&&this->board[posX][posY].hasMine!=hasMine){
 		board[posX][posY].hasMine=hasMine;
 		short a;
 		if (hasMine){
@@ -109,8 +109,8 @@ bool minesweeperBoard::setMine(unsigned int posX,unsigned int posY,const bool ha
 		}
 		for (unsigned int i=posX;i<=posX+2;i++){
 			for (unsigned int j=posY;j<=posY+2;j++){
-				if (isOnBoard(i-1,j-1)){
-					board[i-1][j-1].nearbyMines+=a;
+				if (this->isOnBoard(i-1,j-1)){
+					this->board[i-1][j-1].nearbyMines+=a;
 				}
 			}
 		}
@@ -167,22 +167,22 @@ void minesweeperBoard::safeSpot(unsigned int posX,unsigned int posY){
 	unsigned int movedMines=0;
 	for (unsigned int i=posX;i<=posX+2;i++){
 		for (unsigned int j=posY;j<=posY+2;j++){
-			if (hasMine(i-1,j-1)){
+			if (this->hasMine(i-1,j-1)){
 				movedMines++;
 			}
-			setMine(i-1,j-1,true);
+			this->setMine(i-1,j-1,true);
 		}
 	}
-	populateBoard(movedMines);
+	this->populateBoard(movedMines);
 	for (unsigned int i=posX;i<=posX+2;i++){
 		for (unsigned int j=posY;j<=posY+2;j++){
-			setMine(i-1,j-1,false);
+			this->setMine(i-1,j-1,false);
 		}
 	}
 }
 //return true if the game ends
 bool minesweeperBoard::toggleFlag(unsigned int posX,unsigned int posY){
-	if (!isOnBoard(posX,posY)||board[posX][posY].isRevealed||this->state!=RUNNING){
+	if (!this->isOnBoard(posX,posY)||this->board[posX][posY].isRevealed||this->state!=RUNNING){
 		return false;
 	}
 	int a;
@@ -195,8 +195,8 @@ bool minesweeperBoard::toggleFlag(unsigned int posX,unsigned int posY){
 	if (this->board[posX][posY].hasMine){
 		this->flaggedMineAmount+=a;
 	}
-	board[posX][posY].hasFlag=!board[posX][posY].hasFlag;
-	if(mineAmount==flagAmount&&mineAmount==flaggedMineAmount){
+	this->board[posX][posY].hasFlag=!board[posX][posY].hasFlag;
+	if(this->mineAmount==this->flagAmount&&this->mineAmount==this->flaggedMineAmount){
 		this->state=FINISHED_WIN;
 		return true;
 	}
