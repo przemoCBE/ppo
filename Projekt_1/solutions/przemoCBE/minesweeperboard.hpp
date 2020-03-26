@@ -26,11 +26,10 @@ class minesweeperBoard{
 				this->createBoard(width,height,(width*height)*(mode*0.01));
 			}
 		}
-		
 		unsigned int getWidth() const {return width;}
 		unsigned int getHeight() const {return height;}
 		unsigned int getFlagAmount() const {return flagAmount;}
-		
+		unsigned int getMineAmount() const {return mineAmount;}
 		gameState getGameState() const {return state;}
 		
 		bool getFlag(unsigned int posX,unsigned int posY) const {
@@ -44,6 +43,12 @@ class minesweeperBoard{
 				return this->board[posX][posY].nearbyMines;
 			}
 			return -1;
+		}
+		bool isRevealed(unsigned int posX,unsigned int posY) const{
+			if (this->isOnBoard(posX,posY)){
+				return this->board[posX][posY].isRevealed;
+			}
+			return false;
 		}
 		bool reveal(unsigned int posX,unsigned int posY);
 		bool toggleFlag(unsigned int posX,unsigned int posY);
@@ -72,12 +77,6 @@ class minesweeperBoard{
 		bool setMine(unsigned int posX,unsigned int posY,const bool val);
 		
 		//private getters
-		bool isRevealed(unsigned int posX,unsigned int posY) const{
-			if (this->isOnBoard(posX,posY)){
-				return this->board[posX][posY].isRevealed;
-			}
-			return false;
-		}
 		bool hasMine(unsigned int posX,unsigned int posY) const {
 			if (this->isOnBoard(posX,posY)){
 				return this->board[posX][posY].hasMine;
