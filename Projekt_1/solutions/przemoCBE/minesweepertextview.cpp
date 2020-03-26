@@ -1,51 +1,79 @@
+#ifndef __MINESWEEPER_TEXT_VIEW_CPP__
+#define __MINESWEEPER_TEXT_VIEW_CPP__
+
 #include "minesweepertextview.hpp"
 #include <iostream>
 
 void minesweeperTextView::display(){
-	this->displayLine();
+	std::cout<<"┏"<<this->makeLine("┯")<<"┓"<<std::endl;
 	for(unsigned int posY=0;posY<board->getHeight();posY++){
 		//add a marker every 5 rows
 		if (posY%5==0){
-			std::cout << '+';
+			std::cout << "┠";
 		}else{
-			std::cout << '|';
+			std::cout << "┃";
 		}
 		for(unsigned int posX=0;posX<board->getWidth();posX++){
-			std::cout << board->getFieldInfo(posX,posY);
+			std::cout << this->makeField(posX,posY);
 		}
 		if (posY%5==0){
-			std::cout << '+' << posY;
+			std::cout << "┨" << posY;
 		}else{
-			std::cout << '|';
+			std::cout << "┃";
 		}
 		std::cout << std::endl;
 	}
-	this->displayLine();
-	this->displayNumbers();
+	std::cout<<"┗"<<this->makeLine("┷")<<"┛"<<std::endl
+	         <<' '<<this->makeNumbers()<<std::endl;
 }
 
-void minesweeperTextView::displayLine(){
-	std::cout << ' ';
+std::string minesweeperTextView::makeLine(std::string every5){
+	std::string toReturn;
 	for(unsigned int posX=0;posX<board->getWidth();posX++){
 		//add a marker every 5 columns
 		if (posX%5==0){
-			std::cout << '+';
+			toReturn+=every5;
 		}else{
-			std::cout << '-';
+			toReturn+="━";
 		}
 	}
-	std::cout << std::endl;
+	return toReturn;
 }
 
-void minesweeperTextView::displayNumbers(){
-	std::cout << ' ';
+std::string minesweeperTextView::makeNumbers(){
+	std::string toReturn;
 	for(unsigned int posX=0;posX<board->getWidth();posX++){
 		if (posX%5==0){
-			std::cout << posX;
+			toReturn+=std::to_string(posX);
 			posX+=std::to_string(posX).length()-1;
 		}else{
-			std::cout << ' ';
+			toReturn+=' ';
 		}
 	}
-	std::cout << std::endl;
+	return toReturn;
 }
+
+std::string minesweeperTextView::makeField(unsigned int posX,unsigned int posY){
+	std::string toReturn;
+	toReturn+=this->board->getFieldInfo(posX,posY);
+	switch(toReturn[0]){
+		case '_':
+			return "▒";
+		case ' ':
+			if (posX%5==0){
+				if (posY%5==0){
+					return "┼";
+				}
+				return "│";
+			}
+			if (posY%5==0){
+				return "─";
+			}
+			return " ";
+		case 'F':
+			return "⚑";
+	}
+	return toReturn;
+}
+
+#endif

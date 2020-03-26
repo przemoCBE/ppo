@@ -11,8 +11,10 @@ class minesweeperTextView{
 		void display();
 	private:
 		minesweeperBoard *board;
-		void displayLine();
-		void displayNumbers();
+		std::string makeLine(std::string every5);
+		std::string makeNumbers();
+		std::string makeField(unsigned int posX,unsigned int posY);
+		
 };
 
 #endif
