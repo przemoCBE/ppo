@@ -1,6 +1,3 @@
-#ifndef __MINESWEEPER_TEXT_CONTROLLER_CPP__
-#define __MINESWEEPER_TEXT_CONTROLLER_CPP__
-
 #include "minesweepertextcontroller.hpp"
 #include <sstream>
 #include <iostream>
@@ -8,11 +5,19 @@
 void minesweeperTextController::play(){
 	std::string input,output="";
 	while(!this->exit){
+		std::cout << "\033[2J\033[1;1H";
 		this->display->display();
 		std::cout << output << std::endl << "command:";
+		if (this->board->getGameState()==gameState::FINISHED_LOSS){
+			std::cout << "\nyou lose!";
+			return;
+		}
+		if (this->board->getGameState()==gameState::FINISHED_WIN){
+			std::cout << "\nyou win!";
+			return;
+		}
 		std::getline(std::cin,input);
 		output = this->parse(input);
-		std::cout << "\033[2J\033[1;1H";
 	}
 }
 
@@ -40,9 +45,9 @@ std::string minesweeperTextController::parse(std::string inputStr){
 	std::istringstream input(inputStr);
 	//uses single character commands
 	char command;
-	unsigned int i=0;
 	input >> command;
 	unsigned int pos[2];
+	std::string argument;
 	switch (command){
 		//no arguments
 		case 'h':	//help
@@ -58,32 +63,28 @@ std::string minesweeperTextController::parse(std::string inputStr){
 		//posX and posY as arguments
 		case 'r':	//reveal
 		case 'f':	//flag
-			while(!input.eof()){
-				if (i>=2){
-					return "too many arguments";
-				}
-				std::string argument;
+			for (unsigned int i=0;i<2;i++){
 				input >> argument;
+				if (argument.length()==0){
+					return "command requires more (2) arguments!";
+				}
 				try{
 					pos[i]=std::stoul(argument);
-					//will throw std::invalid_argument if string is not an integer
 				}
 				catch(std::invalid_argument &arg){
-					return "invalid argument(s)!";
+					return "invalid argument(s), number expected!";
 				}
-				i++;
 			}
-			if (i<1){
-				return "too few arguments";
+			//discard any whitespaces
+			input >> std::ws;
+			//check if stream is empty
+			if(!input.eof()){
+				return "command requires less (2) arguments!";
 			}
-			std::cout << command << pos[1];
 			this->posCommands(command,pos[0],pos[1]);
 			return "";
 		default:
 			return "invalid command\n"
 			       "type h for help";
 		}
-	return "TODO";
 }
-
-#endif

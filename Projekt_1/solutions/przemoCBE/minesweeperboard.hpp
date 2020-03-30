@@ -14,8 +14,7 @@ class minesweeperBoard{
 	public:
 		minesweeperBoard(unsigned int width,unsigned int height,unsigned int mineAmount=0){this->createBoard(width,height,mineAmount);};
 		minesweeperBoard(unsigned int width,unsigned int height,gameMode mode){this->createBoard(width,height,mode);};
-		//test constructor
-		minesweeperBoard():minesweeperBoard(10,20,DEBUG){};
+		
 		void debugDisplay() const;
 		void createBoard(unsigned int width,unsigned int height,unsigned int mineAmount=0);
 		void createBoard(unsigned int width,unsigned int height,gameMode mode){
@@ -26,8 +25,8 @@ class minesweeperBoard{
 				this->createBoard(width,height,(width*height)*(mode*0.01));
 			}
 		}
-		unsigned int getWidth() const {return width;}
-		unsigned int getHeight() const {return height;}
+		unsigned int getBoardWidth() const {return width;}
+		unsigned int getBoardHeight() const {return height;}
 		unsigned int getFlagAmount() const {return flagAmount;}
 		unsigned int getMineAmount() const {return mineAmount;}
 		gameState getGameState() const {return state;}
@@ -38,7 +37,8 @@ class minesweeperBoard{
 			}
 			return false;
 		}
-		int getNearbyMines(unsigned int posX,unsigned int posY) const {
+		int countMines(unsigned int posX,unsigned int posY) const {
+			//actually just return a precounted amount
 			if (this->isRevealed(posX,posY)){
 				return this->board[posX][posY].nearbyMines;
 			}
@@ -67,7 +67,7 @@ class minesweeperBoard{
 		unsigned int flaggedMineAmount=0;
 		//win if it reaches mineAmount
 		unsigned int coveredFields;
-		gameState state=NEW;
+		gameState state=gameState::NEW;
 		//used by debugDisplay()
 		std::string fieldDebug(unsigned int posX,unsigned int posY) const;
 		void populateBoard(unsigned int mineAmount);

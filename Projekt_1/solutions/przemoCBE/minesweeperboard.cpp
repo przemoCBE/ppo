@@ -1,6 +1,3 @@
-#ifndef __MINESWEEPER_BOARD_CPP__
-#define __MINESWEEPER_BOARD_CPP__
-
 #include <iostream>
 #include <string>
 #include <memory>
@@ -152,7 +149,7 @@ void minesweeperBoard::revealFlood(unsigned int posX,unsigned int posY){
 	}
 	this->board[posX][posY].isRevealed=true;
 	this->coveredFields--;
-	if (getNearbyMines(posX,posY)>0){
+	if (countMines(posX,posY)>0){
 		return;
 	}
 	for (unsigned int i=posX;i<=posX+2;i++){
@@ -216,11 +213,9 @@ char minesweeperBoard::getFieldInfo(unsigned int posX,unsigned int posY) const{
 	if (hasMine(posX,posY)){
 		return 'X';
 	}
-	char toReturn = std::to_string(getNearbyMines(posX,posY))[0];
+	char toReturn = std::to_string(countMines(posX,posY))[0];
 	if (toReturn=='0'){
 		toReturn=' ';
 	}
 	return toReturn;
 }
-
-#endif

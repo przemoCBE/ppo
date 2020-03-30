@@ -1,8 +1,9 @@
 #ifndef __MINESWEEPER_TEXT_CONTROLLER_HPP__
 #define __MINESWEEPER_TEXT_CONTROLLER_HPP__
 
-#include "minesweeperboard.cpp"
-#include "minesweepertextview.cpp"
+
+#include "minesweeperboard.hpp"
+#include "minesweepertextview.hpp"
 
 class minesweeperTextController{
 	public:

@@ -1,7 +1,7 @@
 #ifndef __MINESWEEPER_TEXT_VIEW_HPP__
 #define __MINESWEEPER_TEXT_VIEW_HPP__
 
-#include "minesweeperboard.cpp"
+#include "minesweeperboard.hpp"
 
 class minesweeperTextView{
 	public:

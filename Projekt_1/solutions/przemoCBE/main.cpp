@@ -1,9 +1,9 @@
-#include "minesweeperboard.cpp"
-#include "minesweepertextview.cpp"
-#include "minesweepertextcontroller.cpp"
+#include "minesweeperboard.hpp"
+#include "minesweepertextview.hpp"
+#include "minesweepertextcontroller.hpp"
 
 int main(){
-	minesweeperBoard board(20,20,gameMode::EASY);
+	minesweeperBoard board(50,10,gameMode::EASY);
 	minesweeperTextView display(board);
 	minesweeperTextController control(board,display);
 	

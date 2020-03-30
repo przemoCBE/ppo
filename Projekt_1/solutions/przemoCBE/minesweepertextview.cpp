@@ -1,19 +1,16 @@
-#ifndef __MINESWEEPER_TEXT_VIEW_CPP__
-#define __MINESWEEPER_TEXT_VIEW_CPP__
-
 #include "minesweepertextview.hpp"
 #include <iostream>
 
 void minesweeperTextView::display(){
 	std::cout<<"┏"<<this->makeLine("┯")<<"┓"<<std::endl;
-	for(unsigned int posY=0;posY<board->getHeight();posY++){
+	for(unsigned int posY=0;posY<board->getBoardHeight();posY++){
 		//add a marker every 5 rows
 		if (posY%5==0){
 			std::cout << "┠";
 		}else{
 			std::cout << "┃";
 		}
-		for(unsigned int posX=0;posX<board->getWidth();posX++){
+		for(unsigned int posX=0;posX<board->getBoardWidth();posX++){
 			std::cout << this->makeField(posX,posY);
 		}
 		if (posY%5==0){
@@ -29,7 +26,7 @@ void minesweeperTextView::display(){
 
 std::string minesweeperTextView::makeLine(std::string every5){
 	std::string toReturn;
-	for(unsigned int posX=0;posX<board->getWidth();posX++){
+	for(unsigned int posX=0;posX<board->getBoardWidth();posX++){
 		//add a marker every 5 columns
 		if (posX%5==0){
 			toReturn+=every5;
@@ -42,7 +39,7 @@ std::string minesweeperTextView::makeLine(std::string every5){
 
 std::string minesweeperTextView::makeNumbers(){
 	std::string toReturn;
-	for(unsigned int posX=0;posX<board->getWidth();posX++){
+	for(unsigned int posX=0;posX<board->getBoardWidth();posX++){
 		if (posX%5==0){
 			toReturn+=std::to_string(posX);
 			posX+=std::to_string(posX).length()-1;
@@ -75,5 +72,3 @@ std::string minesweeperTextView::makeField(unsigned int posX,unsigned int posY){
 	}
 	return toReturn;
 }
-
-#endif
